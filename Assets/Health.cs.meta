@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 00b81e9f1b297d24e807694dd9596d8c
+timeCreated: 1460682325
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - win: {fileID: 100078, guid: 38de5c7011c596340975cc48367109c6, type: 2}
+  - lose: {fileID: 158742, guid: 5650401742b92194aaa9cbfe1728dc86, type: 2}
+  - rukBar: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
