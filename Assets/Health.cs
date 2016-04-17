@@ -6,11 +6,13 @@ using System.Collections;
 public class Health : NetworkBehaviour {
 	public GameObject win;
 	public GameObject lose;
+	int playerAmount;
 	public const int maxTrekken = 100;
 	[SyncVar]
 	public int currentTrekken = 0;
 	private Health health;
 	public RectTransform rukBar;
+	public static bool startCheck = false;
 	void Start()
 	{
 		health = this.GetComponent<Health> ();
@@ -22,6 +24,15 @@ public class Health : NetworkBehaviour {
 //		{
 //			return;
 //		}
+		if (startCheck) 
+		{
+			GameObject[] go = GameObject.FindGameObjectsWithTag ("Player");
+			foreach (GameObject gos in go) 
+			{
+				playerAmount++;
+			}
+			startCheck = false;
+		}
 
 		if (health.currentTrekken >= 100 && health.currentTrekken <= 105)
 		{
@@ -31,17 +42,17 @@ public class Health : NetworkBehaviour {
 				health.RpcWin ();
 		}
 
-		int nietklaarMetTrekken = 2;
+		int nietklaarMetTrekken = playerAmount;
 
-		GameObject[] go = GameObject.FindGameObjectsWithTag ("Player");
+		GameObject[] gol = GameObject.FindGameObjectsWithTag ("Player");
 
-		foreach (GameObject go1 in go) 
+		foreach (GameObject go1 in gol) 
 		{
 			if(go1.GetComponent<Health>().currentTrekken >= 100)
 				nietklaarMetTrekken--;
 		}
 		if(nietklaarMetTrekken == 1)
-			foreach (GameObject go1 in go) 
+			foreach (GameObject go1 in gol) 
 			{
 				if (go1.GetComponent<Health> ().currentTrekken <= 100) {
 					if (!isServer)

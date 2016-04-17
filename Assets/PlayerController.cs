@@ -7,24 +7,38 @@ public class PlayerController : NetworkBehaviour
 	GameObject cracker;
 	public GameObject spermPrefab;
 	public Transform spermSpawn;
-	GameObject condom;
 
+	StartButton startButton;
+	public static bool goooooo = true;
+	GameObject canvas;
 	void Start()
 	{
-		condom = GameObject.FindWithTag ("Condom");
+		canvas = GameObject.Find ("Canvas");
 		cracker = GameObject.Find ("Cracker");
+
+		startButton = canvas.transform.Find("Start").GetComponentInChildren<StartButton>();
 	}
+
 	void Update()
 	{
 		if (!isLocalPlayer)
-		{
 			return;
-		}
 
+		if(startButton != null)
+		if (StartButton.startG && !goooooo)
+		{
+			//CmdstartGame ();
+			goooooo = true;
+			canvas.transform.Find("Start").gameObject.SetActive(false);
+		}
 		if (Input.GetKeyDown (KeyCode.Space)) 
 		{
-			CmdTrekken ();
-			CmdCum ();
+			if (goooooo)
+			{
+				CmdTrekken();
+				CmdCum();
+
+			}
 		}
 
 		transform.LookAt (cracker.transform);
@@ -58,10 +72,16 @@ public class PlayerController : NetworkBehaviour
 			spermSpawn.position,
 			spermSpawn.rotation);
 
-		// Add velocity to the bullet
-		sperm.transform.LookAt(cracker.transform);
-		sperm.transform.parent = condom.transform;
-		sperm.GetComponent<Rigidbody>().velocity = sperm.transform.forward * 6;
 		NetworkServer.Spawn(sperm);       
 	}
+
+//	[Command]
+//	void CmdstartGame()
+//	{
+//		GameObject[] go = GameObject.FindGameObjectsWithTag ("Player");
+//		foreach (GameObject gos in go) {
+//			gos.GetComponent<PlayerController> ().goooooo = true;
+//
+//		}
+//	}
 }

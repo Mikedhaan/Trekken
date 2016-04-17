@@ -13,6 +13,6 @@ public class Sperm : MonoBehaviour {
 	}
 	void Update()
 	{
-		
+		transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("Cracker").transform.position, 2f*Time.deltaTime);
 	}
 }
