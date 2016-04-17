@@ -27,6 +27,7 @@ public class StartButton : NetworkBehaviour {
 	}
 	public void Click()
 	{
+		this.GetComponent<Button> ().interactable = false;
 		StartCoroutine (countDown());
 
 	}

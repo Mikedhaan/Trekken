@@ -19,7 +19,8 @@ public class Health : NetworkBehaviour {
 	}
 	void Update()
 	{
-		rukBar.sizeDelta = new Vector2(currentTrekken, rukBar.sizeDelta.y);
+		if(currentTrekken <= 100)
+			rukBar.sizeDelta = new Vector2(currentTrekken, rukBar.sizeDelta.y);
 //		if (!isLocalPlayer)
 //		{
 //			return;
