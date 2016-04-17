@@ -40,18 +40,22 @@ public class StartButton : NetworkBehaviour {
 	{
 		GameObject threee = (GameObject)Instantiate(three,three.transform.position,rot);
 		NetworkServer.Spawn (threee);
+		Destroy (threee, 1f);
 		yield return new WaitForSeconds (1f);
 
 		GameObject twoo = (GameObject)Instantiate(two,two.transform.position,rot);
 		NetworkServer.Spawn (twoo);
+		Destroy (twoo, 1f);
 		yield return new WaitForSeconds (1f);
 
 		GameObject onee = (GameObject)Instantiate(one,one.transform.position,rot);
 		NetworkServer.Spawn (onee);
+		Destroy (onee, 1f);
 		yield return new WaitForSeconds (1f);
 
 		GameObject goo = (GameObject)Instantiate (go,go.transform.position,rot);
 		NetworkServer.Spawn (goo);
+		Destroy (threee, 0.5f);
 		goo.transform.rotation = rot;
 		yield return new WaitForSeconds (0.1f);
 		startG = true;
