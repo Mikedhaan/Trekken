@@ -9,7 +9,7 @@ public class PlayerController : NetworkBehaviour
 	public Transform spermSpawn;
 
 	StartButton startButton;
-	public static bool goooooo = true;
+	private bool goooooo = false;
 	GameObject canvas;
 	void Start()
 	{
@@ -27,8 +27,9 @@ public class PlayerController : NetworkBehaviour
 		if(startButton != null)
 		if (StartButton.startG && !goooooo)
 		{
-			//CmdstartGame ();
-			goooooo = true;
+			CmdstartGame ();
+			RpcstartGame ();
+			//goooooo = true;
 			canvas.transform.Find("Start").gameObject.SetActive(false);
 		}
 		if (Input.GetKeyDown (KeyCode.Space)) 
@@ -72,16 +73,27 @@ public class PlayerController : NetworkBehaviour
 			spermSpawn.position,
 			spermSpawn.rotation);
 
-		NetworkServer.Spawn(sperm);       
+		NetworkServer.Spawn(sperm);
+		sperm.transform.parent = this.transform;
 	}
 
-//	[Command]
-//	void CmdstartGame()
-//	{
-//		GameObject[] go = GameObject.FindGameObjectsWithTag ("Player");
-//		foreach (GameObject gos in go) {
-//			gos.GetComponent<PlayerController> ().goooooo = true;
-//
-//		}
-//	}
+	[Command]
+	void CmdstartGame()
+	{
+		GameObject[] go = GameObject.FindGameObjectsWithTag ("Player");
+		foreach (GameObject gos in go) {
+			gos.GetComponent<PlayerController> ().goooooo = true;
+
+		}
+	}
+
+	[ClientRpc]
+	void RpcstartGame()
+	{
+		GameObject[] go = GameObject.FindGameObjectsWithTag ("Player");
+		foreach (GameObject gos in go) {
+			gos.GetComponent<PlayerController> ().goooooo = true;
+
+		}
+	}
 }

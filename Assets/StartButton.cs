@@ -11,19 +11,24 @@ public class StartButton : NetworkBehaviour {
 	private Text txt;
 	private static GameObject countDownGo;
 	GameObject canvas;
+	public GameObject three, two, one, go;
+	[SyncVar]
+	Quaternion rot;
 	// Use this for initialization
 	void OnEnable () {
+		this.GetComponent<Button> ().interactable = true;
 		canvas = GameObject.Find ("Canvas");
-		txt = canvas.transform.Find ("Countdown").GetComponent<Text>();
+		rot = Quaternion.Euler (90, 0, 0);
+		//txt = canvas.transform.Find ("Countdown").GetComponent<Text>();
 		startG = false;
-		txt.text = "3";
-		countDownGo = canvas.transform.Find ("Countdown").gameObject;
-		countDownGo.SetActive (true);
+		//txt.text = "3";
+		//countDownGo = canvas.transform.Find ("Countdown").gameObject;
+		//countDownGo.SetActive (true);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		txt.text = currentTxt;
+		//txt.text = currentTxt;
 	}
 	public void Click()
 	{
@@ -33,16 +38,26 @@ public class StartButton : NetworkBehaviour {
 	}
 	IEnumerator countDown()
 	{
-		currentTxt = "3";
+		GameObject threee = (GameObject)Instantiate(three,three.transform.position,rot);
+		NetworkServer.Spawn (threee);
 		yield return new WaitForSeconds (1f);
-		currentTxt = "2";
+
+		GameObject twoo = (GameObject)Instantiate(two,two.transform.position,rot);
+		NetworkServer.Spawn (twoo);
 		yield return new WaitForSeconds (1f);
-		currentTxt = "1";
+
+		GameObject onee = (GameObject)Instantiate(one,one.transform.position,rot);
+		NetworkServer.Spawn (onee);
 		yield return new WaitForSeconds (1f);
-		currentTxt = "GO";
+
+		GameObject goo = (GameObject)Instantiate (go,go.transform.position,rot);
+		NetworkServer.Spawn (goo);
+		goo.transform.rotation = rot;
 		yield return new WaitForSeconds (0.1f);
 		startG = true;
 		Health.startCheck = true;
-		countDownGo.SetActive (false);
+		//countDownGo.SetActive (false);
 	}
+
+
 }
